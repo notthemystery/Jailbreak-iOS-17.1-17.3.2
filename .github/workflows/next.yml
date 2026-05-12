@@ -1,0 +1,51 @@
+name: Build iOS App with dylib
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up dependencies
+        run: |
+          brew install xcodegen
+          
+      - name: Build dylib
+        run: |
+          gcc -shared -fPIC -o libexploit.dylib exploit.c
+          mkdir -p BuildProducts
+          mv libexploit.dylib BuildProducts/
+
+      - name: Prepare Xcode project
+        run: |
+          # Generate Xcode project with XcodeGen
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Copy dylib into project
+        run: |
+          # Copy the dylib into the project directory (Adjust path as needed)
+          cp BuildProducts/libexploit.dylib ./MyApp/Resources/
+
+      - name: Install dependencies, prepare workspace
+        run: |
+          # Any setup steps, e.g., CocoaPods, Carthage, etc.
+          # (Skip if not used)
+
+      - name: Build IPA
+        run: |
+          # Run your existing build script
+          ./Build.sh
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: app ipa
+          path: build/YourApp.ipa
