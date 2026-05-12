@@ -3,6 +3,15 @@ import SwiftUI
 // Declare the C function
 @_silgen_name("run_exploit") func run_exploit()
 
+@main
+struct ExploitApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var logText: String = "Ready to run exploit..."
     @State private var isRunning: Bool = false
@@ -40,11 +49,5 @@ struct ContentView: View {
                 isRunning = false
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
