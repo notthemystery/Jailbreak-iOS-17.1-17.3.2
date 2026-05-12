@@ -14,11 +14,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up
-        run: echo "Building libexploit.dylib"
+        run: echo "Building libkexploit.dylib"
 
       - name: Build shared library
         run: |
-          gcc -shared -fPIC -o libexploit.dylib exploit.c
+          gcc -shared -fPIC -o libexploit.dylib kexploit.c
           
       - name: Upload artifact
         uses: actions/upload-artifact@v4
