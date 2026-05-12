@@ -37,6 +37,7 @@ jobs:
       - name: Build IPA
         run: |
           # Run your existing build script
+          chmod +x Build.sh
           ./Build.sh
 
       - name: Upload IPA
