@@ -1,0 +1,19 @@
+name: Jailbreak
+
+options:
+  bundleIdPrefix: com.jailbreak
+
+targets:
+  MyApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: jb.swift
+    frameworks:
+      - path: BuildProducts/libexploit.dylib
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.Terminal.app
+      IPHONEOS_DEPLOYMENT_TARGET: 15.0
+
+    info:
+      path: MyApp/Info.plist
