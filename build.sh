@@ -22,10 +22,13 @@ fi
 
 cd build
 
+SCHEME=$(xcodebuild -list -project "$WORKING_LOCATION/$APPLICATION_NAME.xcodeproj" | awk '/Schemes:/ {getline; print $1}')
+echo "[*] Using scheme: $SCHEME"
+
 echo "[*] Building..."
 if [[ $* == *--debug* ]]; then
 xcodebuild -project "$WORKING_LOCATION/$APPLICATION_NAME.xcodeproj" \
-    -scheme "$APPLICATION_NAME" \
+    -scheme "$SCHEME" \
     -configuration Debug \
     -derivedDataPath "$WORKING_LOCATION/build/DerivedDataApp" \
     -destination 'generic/platform=iOS' \
@@ -37,7 +40,7 @@ TARGET_APP="$WORKING_LOCATION/build/$APPLICATION_NAME.app"
 cp -r "$DD_APP_PATH" "$TARGET_APP"
 else
 xcodebuild -project "$WORKING_LOCATION/$APPLICATION_NAME.xcodeproj" \
-    -scheme "$APPLICATION_NAME" \
+    -scheme "$SCHEME" \
     -configuration Release \
     -derivedDataPath "$WORKING_LOCATION/build/DerivedDataApp" \
     -destination 'generic/platform=iOS' \
