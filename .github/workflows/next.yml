@@ -19,7 +19,7 @@ jobs:
           
       - name: Build dylib
         run: |
-          gcc -shared -fPIC -o libexploit.dylib exploit.c
+          gcc -shared -fPIC -o libexploit.dylib kexploit.c
           mkdir -p BuildProducts
           mv libexploit.dylib BuildProducts/
 
@@ -28,11 +28,6 @@ jobs:
           # Generate Xcode project with XcodeGen
           brew install xcodegen
           xcodegen generate
-
-      - name: Copy dylib into project
-        run: |
-          # Copy the dylib into the project directory (Adjust path as needed)
-          cp BuildProducts/libexploit.dylib ./MyApp/Resources/
 
       - name: Install dependencies, prepare workspace
         run: |
